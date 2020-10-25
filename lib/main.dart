@@ -25,6 +25,10 @@ class _RandomWordsState extends State<RandomWords> {
   final List<WordPair> _suggestions = <WordPair>[];            // NEW
   final _saved = Set<WordPair>();
   final TextStyle _biggerFont = const TextStyle(fontSize: 18);
+  void _pushSaved() 
+  {
+    
+  }
   @override
   Widget build(BuildContext context) {
     //final wordPair = WordPair.random();      // NEW
@@ -32,6 +36,9 @@ class _RandomWordsState extends State<RandomWords> {
     return Scaffold (                     // Add from here... 
       appBar: AppBar(
         title: Text('Startup Name Generator'),
+         actions: [
+          IconButton(icon: Icon(Icons.list), onPressed: _pushSaved),
+        ],
       ),
       body: _buildSuggestions(),
     );              
@@ -79,7 +86,16 @@ class _RandomWordsState extends State<RandomWords> {
        trailing: Icon(   // NEW from here... 
       alreadySaved ? Icons.favorite : Icons.favorite_border,
       color: alreadySaved ? Colors.red : null,
-    ),                // ... to here.
+    ),
+     onTap: () {      // NEW lines from here...
+      setState(() {
+        if (alreadySaved) {
+          _saved.remove(pair);
+        } else { 
+          _saved.add(pair); 
+        } 
+      });
+    },               // ... to here.                // ... to here.
     );
   }
 }
